@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import Link from './Link.astro';
+export interface Props {
+logo_href: string;
+links: { href: string; label: string }[];
+}
+const { logo_href="#home", links=[] }: Props = Astro.props;
+---
+<header class="header">
+
+<script type="module" client::load>
+    import '/src/scripts/menu.ts';
+</script>
+
+    <div class="header-inner container">
+        <a href={logo_href} class="logo">
+            <!-- Logo de Sybil -->
+            <Image
+            src="/assets/logo_sybil.png" 
+            alt="Sybil" 
+            height="60px"
+            width="60px"
+            priority
+            />
+        </a>
+        <nav>
+            <ul class="nav-links" id="navLinks">
+                {links.map((link) => (
+                    <Link label={link.label} href={link.href} />
+                ))}
+            </ul>
+            <button class="hamburger" id="menuToggle" aria-label="Abrir menú">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,10 @@
+---
+export interface Props {
+    label: string;
+    href: string;
+}
+const { label, href }: NavProps = Astro.props;
+---
+<li>
+    <a href={href}>{label}</a>
+</li>

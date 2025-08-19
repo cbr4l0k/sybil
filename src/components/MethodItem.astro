@@ -1,0 +1,13 @@
+---
+export interface Props {
+    title?: string;
+    body?: string;
+}
+const { title = "Card Title" } = Astro.props;
+const { body = "Card Body" } = Astro.props;
+---
+
+<div class="method-item">
+    {title && <h3>{title}</h3>}
+    {body && <p>{body}</p>}
+</div>

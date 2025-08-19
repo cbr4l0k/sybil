@@ -477,6 +477,15 @@ h2 {
   .nav-links a:hover {
     border-bottom: none;
   }
+  
+  /* Hide hero image on smaller screens */
+  .hero-image {
+    display: none;
+  }
+  .hero-grid {
+      display: block;
+      align-items: center;
+  }
 }
 
 /* Animaciones para el menú hamburguesa */

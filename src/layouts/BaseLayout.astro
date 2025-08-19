@@ -1,0 +1,77 @@
+---
+import { Image } from 'astro:assets';
+import Nav  from  '../components/Nav.astro';
+import Link from '../components/Link.astro';
+
+interface Link {
+  href: string;
+  label: string;
+}
+export interface Props {
+    title?: string;
+    links?: Link[];
+}
+const { 
+title = "Sybil",
+links = [
+    { href: "#metodologia", label: "Metodología" },
+    { href: "#contacto", label: "Contacto" }
+  ]
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        {title && <title>{title}</title>}
+        <!-- stylesheet -->
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet"
+        />
+        <!-- favicon -->
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <!-- Allow pages to inject head elements -->
+        <slot name="head" />
+    </head>
+
+    <body>
+        <Nav links={links}/>
+        <main>
+            <slot />
+        </main>
+
+        <footer class="footer">
+            <div class="container footer-content">
+                <div class="footer-column">
+                    <h3>Sybil</h3>
+                    <p>
+                    Transformamos procesos empresariales mediante automatización
+                    inteligente y humanos.
+                    </p>
+                </div>
+                <div class="footer-column">
+                    <h4>Enlaces</h4>
+                    <ul>
+
+                        <Link label="Metodología" href="#metodologia" />
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contacto</h4>
+                    <p>Email: <a href="mailto:info@sybil.com">info@sybil.com</a></p>
+                    <p>Teléfono: <a href="tel:+573202889729">+57 320 288 9729</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Sybil. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </body>
+</html>

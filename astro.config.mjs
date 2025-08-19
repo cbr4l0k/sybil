@@ -3,6 +3,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://example.com',
-    base: process.env.NODE_ENV === 'production' ? '/web/' : undefined,
+    site: 'https://cbr4l0k.github.io',
+    base: process.env.NODE_ENV === 'production' ? '/sybil/' : undefined,
 });

@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Link from './Link.astro';
+import { createPath } from '../utils/paths';
 export interface Props {
 logo_href: string;
 links: { href: string; label: string }[];
@@ -17,7 +18,7 @@ const { logo_href="#home", links=[] }: Props = Astro.props;
         <a href={logo_href} class="logo">
             <!-- Logo de Sybil -->
             <Image
-            src="/assets/logo_sybil.png" 
+            src={createPath("/assets/logo_sybil.png")} 
             alt="Sybil" 
             height="60px"
             width="60px"
@@ -27,7 +28,7 @@ const { logo_href="#home", links=[] }: Props = Astro.props;
         <nav>
             <ul class="nav-links" id="navLinks">
                 {links.map((link) => (
-                    <Link label={link.label} href={link.href} />
+                    <Link label={link.label} href={createPath(link.href)} />
                 ))}
             </ul>
             <button class="hamburger" id="menuToggle" aria-label="Abrir menú">

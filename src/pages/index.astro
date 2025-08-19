@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MethodItem from '../components/MethodItem.astro';
+import { createPath } from '../utils/paths';
 export const prerender = true;
 const pageTitle = "Sybil | Transformación Digital Inteligente";
 ---
@@ -12,20 +13,20 @@ const pageTitle = "Sybil | Transformación Digital Inteligente";
     <div class="container hero-grid">
         <div class="hero-text">
             <h1 class="hero-heading">
-                Integramos soluciones inteligents <br />
+                Integramos soluciones inteligentes <br />
                 con <span>procesos humanos</span>
             </h1>
             <p class="hero-tagline">
             Diseñamos y desarrollamos automatizaciones personalizadas, aplicamos inteligencia artificial y reestructuramos procesos
             con enfoque estratégico, rentable y humano.
             </p>
-            <a href="#contacto" class="btn btn-primary">
+            <a href={createPath("#contacto")} class="btn btn-primary">
                 Solicita una consulta gratuita
             </a>
         </div>
         <div class="hero-image">
             <Image 
-            src="/assets/hero_bg_1.png" 
+            src={createPath("/assets/hero_bg_1.png")} 
             alt="Imagen de Sybil" 
             width="600" 
             height="400" 

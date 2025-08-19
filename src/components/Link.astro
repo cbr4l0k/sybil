@@ -1,9 +1,8 @@
 ---
-export interface Props {
-    label: string;
-    href: string;
-}
-const { label, href }: NavProps = Astro.props;
+import type { LinkProps } from '../types/index.ts';
+
+export type Props = LinkProps;
+const { label, href }: Props = Astro.props;
 ---
 <li>
     <a href={href}>{label}</a>

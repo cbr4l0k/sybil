@@ -1,0 +1,25 @@
+---
+export interface Props {
+  variant?: 'method' | 'niveles' | 'fases' | 'industrias' | 'metrics';
+  className?: string;
+}
+
+const { variant = 'method', className = '' }: Props = Astro.props;
+
+const getGridClass = (variant: string) => {
+  const classes = {
+    method: 'method-grid',
+    niveles: 'niveles-grid',
+    fases: 'fases-timeline', 
+    industrias: 'industrias-grid',
+    metrics: 'metrics-grid'
+  };
+  return classes[variant as keyof typeof classes] || 'method-grid';
+};
+
+const gridClass = `${getGridClass(variant)} ${className}`.trim();
+---
+
+<div class={gridClass}>
+  <slot />
+</div>

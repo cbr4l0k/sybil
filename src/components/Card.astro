@@ -1,0 +1,31 @@
+---
+import type { CardProps } from '../types/index.ts';
+
+export type Props = CardProps;
+const { 
+  title = "Card Title", 
+  body = "Card Body", 
+  variant = "method",
+  number 
+}: Props = Astro.props;
+
+const getCardClass = (variant: string) => {
+  const classes = {
+    method: 'method-item',
+    nivel: 'nivel-card', 
+    fase: 'fase',
+    industria: 'industria-item'
+  };
+  return classes[variant as keyof typeof classes] || 'method-item';
+};
+
+const cardClass = getCardClass(variant);
+---
+
+<div class={cardClass}>
+  {variant === 'fase' && number && (
+    <div class="fase-number">{number}</div>
+  )}
+  {title && <h3>{title}</h3>}
+  {body && <p>{body}</p>}
+</div>

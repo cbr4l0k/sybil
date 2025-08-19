@@ -1,0 +1,19 @@
+---
+import type { SectionProps } from '../types/index.ts';
+
+export type Props = SectionProps;
+const { 
+  id, 
+  title, 
+  intro, 
+  className = "" 
+}: Props = Astro.props;
+---
+
+<section class={className} {id}>
+  <div class="container">
+    {title && <h2>{title}</h2>}
+    {intro && <p class="section-intro">{intro}</p>}
+    <slot />
+  </div>
+</section>

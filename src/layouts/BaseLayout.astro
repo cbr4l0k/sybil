@@ -3,21 +3,16 @@ import { Image } from 'astro:assets';
 import Nav  from  '../components/Nav.astro';
 import Link from '../components/Link.astro';
 import { createPath } from '../utils/paths';
+import { SITE_CONFIG, DEFAULT_NAVIGATION } from '../utils/config';
+import type { LinkProps } from '../types/index.ts';
 
-interface Link {
-  href: string;
-  label: string;
-}
 export interface Props {
     title?: string;
-    links?: Link[];
+    links?: LinkProps[];
 }
 const { 
-title = "Sybil",
-links = [
-    { href: "#metodologia", label: "Metodología" },
-    { href: "#contacto", label: "Contacto" }
-  ]
+  title = SITE_CONFIG.title,
+  links = DEFAULT_NAVIGATION
 } = Astro.props;
 ---
 
@@ -68,8 +63,8 @@ links = [
                 </div>
                 <div class="footer-column">
                     <h4>Contacto</h4>
-                    <p>Email: <a href="mailto:info@sybil.com">info@sybil.com</a></p>
-                    <p>Teléfono: <a href="tel:+573202889729">+57 320 288 9729</a></p>
+                    <p>Email: <a href={`mailto:${SITE_CONFIG.email}`}>{SITE_CONFIG.email}</a></p>
+                    <p>Teléfono: <a href={`tel:${SITE_CONFIG.phone}`}>{SITE_CONFIG.phone}</a></p>
                 </div>
             </div>
             <div class="footer-bottom">

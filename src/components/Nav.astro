@@ -2,9 +2,11 @@
 import { Image } from 'astro:assets';
 import Link from './Link.astro';
 import { createPath } from '../utils/paths';
+import type { LinkProps } from '../types/index.ts';
+
 export interface Props {
-logo_href: string;
-links: { href: string; label: string }[];
+  logo_href?: string;
+  links: LinkProps[];
 }
 const { logo_href="#home", links=[] }: Props = Astro.props;
 ---

@@ -1,10 +1,33 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import MethodItem from '../components/MethodItem.astro';
+import Section from '../components/Section.astro';
+import Grid from '../components/Grid.astro';
+import Card from '../components/Card.astro';
 import { createPath } from '../utils/paths';
+import { SITE_CONFIG } from '../utils/config';
+
 export const prerender = true;
 const pageTitle = "Sybil | Transformación Digital Inteligente";
+
+const metodologiaItems = [
+  {
+    title: "Fase de Descubrimiento",
+    body: "Analizamos en profundidad las necesidades de tu negocio e identificamos los procesos susceptibles de ser automatizados."
+  },
+  {
+    title: "Fase de Diseño", 
+    body: "Definimos la arquitectura de la solución y preparamos un plan de transición laboral para apoyar a los equipos involucrados."
+  },
+  {
+    title: "Fase de Implementación",
+    body: "Desarrollamos, probamos y desplegamos la solución utilizando tecnologías de automatización e inteligencia artificial."
+  },
+  {
+    title: "Fase de Mantenimiento",
+    body: "Aseguramos la continuidad de la operación con soporte, monitoreo y mejoras continuas basadas en datos."
+  }
+];
 ---
 
 <BaseLayout title={pageTitle}>
@@ -38,41 +61,28 @@ const pageTitle = "Sybil | Transformación Digital Inteligente";
 </section>
 
 
-<section class="metodologia" id="metodologia">
-    <div class="container">
-        <h2>Metodología de trabajo</h2>
-        <p class="section-intro">
-        En Sybil unimos nuestra experiencia en automatización con una metodología híbrida —que combina BPMN y CRISP‑DM— dentro
-        de un modelo organizativo de células de trabajo autónomas. Cada célula asume la responsabilidad de su proyecto de
-        principio a fin, aplicando un proceso estructurado que garantiza resultados confiables y escalables y consultando al
-        resto de la organización solo cuando sus decisiones puedan impactar otras áreas. Gracias a este enfoque colaborativo y
-        transparente, logramos una ejecución ágil y un alto nivel de calidad en cada entrega.
-        </p>
-        <div class="method-grid">
-            <MethodItem title="Fase de Descubrimiento"  
-            body="Analizamos en profundidad las necesidades de tu negocio e identificamos los procesos susceptibles de ser automatizados."
-            />
-            <MethodItem title="Fase de Diseño"
-            body="Definimos la arquitectura de la solución y preparamos un plan de transición laboral para apoyar a los equipos involucrados."
-            />
-            <MethodItem title="Fase de Implementación"
-            body="Desarrollamos, probamos y desplegamos la solución utilizando tecnologías de automatización e inteligencia artificial."
-            />
-            <MethodItem title="Fase de Mantenimiento"
-            body="Aseguramos la continuidad de la operación con soporte, monitoreo y mejoras continuas basadas en datos."
-            />
-        </div>
-    </div>
-</section>
+<Section 
+  id="metodologia" 
+  className="metodologia"
+  title="Metodología de trabajo"
+  intro="En Sybil unimos nuestra experiencia en automatización con una metodología híbrida —que combina BPMN y CRISP‑DM— dentro de un modelo organizativo de células de trabajo autónomas. Cada célula asume la responsabilidad de su proyecto de principio a fin, aplicando un proceso estructurado que garantiza resultados confiables y escalables y consultando al resto de la organización solo cuando sus decisiones puedan impactar otras áreas. Gracias a este enfoque colaborativo y transparente, logramos una ejecución ágil y un alto nivel de calidad en cada entrega."
+>
+  <Grid variant="method">
+    {metodologiaItems.map(item => (
+      <Card variant="method" title={item.title} body={item.body} />
+    ))}
+  </Grid>
+</Section>
 
-<section class="cta" id="contacto">
-    <div class="container">
-        <h2>¿Listo para transformar tu negocio?</h2>
-        <p>
-        Agenda una consulta gratuita con nuestros expertos y descubre cómo la
-        automatización puede hacer crecer tu empresa.
-        </p>
-        <a href="mailto:info@sybil.com" class="btn btn-primary">Contáctanos</a>
-    </div>
-</section>
+<Section 
+  id="contacto"
+  className="cta"
+  title="¿Listo para transformar tu negocio?"
+>
+  <p>
+    Agenda una consulta gratuita con nuestros expertos y descubre cómo la
+    automatización puede hacer crecer tu empresa.
+  </p>
+  <a href={`mailto:${SITE_CONFIG.email}`} class="btn btn-primary">Contáctanos</a>
+</Section>
 </BaseLayout>

@@ -24,10 +24,6 @@ const faqContent = {
       question: "¿Qué pasa si el sistema automatizado falla?",
       answer: "Todo sistema de automatización que desarrollamos incluye monitoreo 24/7, respaldos automáticos y planes de contingencia. Además, siempre mantenemos la capacidad de regresar al proceso manual temporalmente. Nuestro enfoque de 'colaboración humano-IA' asegura que nunca dependas 100% de la automatización para procesos críticos."
     },
-    {
-      question: "¿Cuánto tiempo toma recuperar la inversión?",
-      answer: "En promedio, nuestros clientes recuperan su inversión entre 3 a 8 meses, dependiendo del proceso automatizado. Para procesos simples (P1-P2), el retorno puede verse en semanas. Para automatizaciones más complejas (P4-P5), el período es mayor pero el impacto también es significativamente más alto."
-    }
   ],
   'getting-started': [
     {
@@ -82,13 +78,13 @@ const faqContent = {
 };
 ---
 
-<section id="faq" class={`faq-section ${className}`}>
+<section id="preguntas" class={`faq-section ${className}`}>
   <div class="container">
     <div class="faq-container">
       <div class="faq-layout">
         <!-- Left Sidebar -->
         <div class="faq-sidebar">
-          <h2>FAQ</h2>
+          <h2>Preguntas Frecuentes</h2>
           <nav class="faq-navigation">
             {categories.map((category) => (
               <button

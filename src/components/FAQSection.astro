@@ -6,11 +6,11 @@ export interface Props {
 const { className = "" }: Props = Astro.props;
 
 const categories = [
-  { id: 'top-questions', label: 'Preguntas principales', active: true },
-  { id: 'getting-started', label: 'Primeros pasos', active: false },
-  { id: 'pricing', label: 'Precios y costos', active: false },
-  { id: 'implementation', label: 'Implementación', active: false },
-  { id: 'technical', label: 'Aspectos técnicos', active: false },
+  { id: 'top-questions', label: 'Preguntas principales', shortLabel: 'Preguntas principales', active: true, color: '#639bff' },
+  { id: 'getting-started', label: 'Primeros pasos', shortLabel: 'Primeros pasos', active: false, color: '#639bff' },
+  { id: 'pricing', label: 'Precios y costos', shortLabel: 'Precios y costos', active: false, color: '#639bff' },
+  { id: 'implementation', label: 'Implementación', shortLabel: 'Implementación', active: false, color: '#639bff' },
+  { id: 'technical', label: 'Aspectos técnicos', shortLabel: 'Aspectos técnicos', active: false, color: '#639bff' },
 ];
 
 const faqContent = {
@@ -89,8 +89,15 @@ const faqContent = {
               <button
                 class={`nav-item ${category.active ? 'active' : ''}`}
                 data-category={category.id}
+                style={`--category-color: ${category.color}`}
               >
-                {category.label}
+                <div class="nav-item-content">
+                  <span class="nav-item-label nav-item-full">{category.label}</span>
+                  <span class="nav-item-label nav-item-short">{category.shortLabel}</span>
+                  <div class="nav-item-indicator">
+                    <div class="indicator-dot"></div>
+                  </div>
+                </div>
               </button>
             ))}
           </nav>

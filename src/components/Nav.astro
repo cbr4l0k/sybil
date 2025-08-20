@@ -12,8 +12,26 @@ const { logo_href="#home", links=[] }: Props = Astro.props;
 ---
 <header class="header">
 
-<script type="module" client::load>
-    import '/src/scripts/menu.ts';
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    function toggleMenu() {
+        navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('open');
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                toggleMenu();
+            }
+        })
+    })
+});
 </script>
 
     <div class="header-inner container">

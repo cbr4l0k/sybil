@@ -1,0 +1,765 @@
+---
+export interface Props {
+  className?: string;
+}
+
+const { className = "" }: Props = Astro.props;
+
+const automationLevels = [
+  {
+    id: 'P1',
+    number: '01',
+    title: 'Simple',
+    subtitle: 'Automatización básica',
+    description: 'Tareas repetitivas que haces todos los días sin pensar',
+    benefit: 'Libera tiempo para tareas que realmente importan',
+    whatItDoes: 'Toma esas tareas aburridas y repetitivas que te quitan tiempo todos los días y las hace automáticamente. Como mover archivos, enviar reportes o notificar a tu equipo.',
+    whyUseful: 'Porque tu tiempo vale más que hacer clic en los mismos botones 50 veces al día. Es el primer paso para recuperar horas de tu semana.',
+    examples: ['Organizar archivos automáticamente', 'Enviar reportes semanales', 'Notificar cambios de estado'],
+    color: '#639bff',
+    intensity: 0.2
+  },
+  {
+    id: 'P2',
+    number: '02', 
+    title: 'Inteligente',
+    subtitle: 'Lógica condicional',
+    description: 'Decisiones simples basadas en reglas claras',
+    benefit: 'Consistencia en procesos que requieren criterio básico',
+    whatItDoes: 'Toma decisiones simples por ti siguiendo las reglas que ya tienes. Si pasa esto, entonces haz aquello. Como aprobar solicitudes que cumplen criterios o mover procesos al siguiente paso.',
+    whyUseful: 'Elimina la variabilidad humana en decisiones rutinarias. Tu equipo siempre aplicará los mismos criterios, sin excepciones ni olvidos.',
+    examples: ['Aprobar solicitudes que cumplen criterios', 'Escalar tickets según prioridad', 'Asignar tareas automáticamente'],
+    color: '#5b6ee1',
+    intensity: 0.3
+  },
+  {
+    id: 'P3',
+    number: '03',
+    title: 'Perceptivo',
+    subtitle: 'Reconoce patrones',
+    description: 'Ve patrones en tus datos que tú podrías pasar por alto',
+    benefit: 'Detecta oportunidades y riesgos antes de que sean obvios',
+    whatItDoes: 'Analiza tus datos buscando patrones, tendencias y anomalías. Puede clasificar documentos, detectar fraudes o predecir qué clientes están a punto de irse.',
+    whyUseful: 'Es como tener un analista trabajando 24/7 que nunca se cansa y ve cosas que a veces se nos escapan. Te da ventaja competitiva a través de insights.',
+    examples: ['Detectar fraudes en transacciones', 'Clasificar documentos por tipo', 'Predecir abandono de clientes'],
+    color: '#4f46e5',
+    intensity: 0.5
+  },
+  {
+    id: 'P4',
+    number: '04',
+    title: 'Comprensivo',
+    subtitle: 'IA contextual',
+    description: 'Entiende el contexto y genera contenido relevante',
+    benefit: 'Acelera tareas complejas que requieren entendimiento',
+    whatItDoes: 'Lee, comprende y genera contenido como si fuera un asistente muy capaz. Puede analizar contratos, escribir resúmenes o crear contenido siguiendo tu estilo.',
+    whyUseful: 'Te da un asistente que entiende tu negocio y puede manejar tareas complejas que antes requerían mucho tiempo y atención al detalle.',
+    examples: ['Analizar contratos y extraer puntos clave', 'Generar reportes ejecutivos', 'Moderar contenido automáticamente'],
+    color: '#3730a3',
+    intensity: 0.7
+  },
+  {
+    id: 'P5',
+    number: '05',
+    title: 'Colaborativo',
+    subtitle: 'Humano + IA trabajando juntos',
+    description: 'La IA hace el trabajo pesado, tú tomas las decisiones importantes',
+    benefit: 'Combina velocidad de IA con criterio humano',
+    whatItDoes: 'La IA maneja 80% del proceso pesado (análisis, investigación, preparación) y te presenta solo lo que necesitas para tomar la decisión final.',
+    whyUseful: 'Obtienes la velocidad y precisión de la IA sin perder el control humano en decisiones críticas. Es como tener un equipo de analistas trabajando para ti.',
+    examples: ['Diagnósticos médicos preliminares', 'Investigación legal automatizada', 'Análisis de inversiones'],
+    color: '#1e1b4b',
+    intensity: 0.85
+  },
+  {
+    id: 'P6',
+    number: '06',
+    title: 'Asistido',
+    subtitle: 'Tú lideras, IA te potencia',
+    description: 'Mantienes control total mientras la IA amplifica tus capacidades',
+    benefit: 'Multiplica tu impacto sin perder tu toque personal',
+    whatItDoes: 'Tú mantienes el control y la dirección, pero la IA te da superpoderes: investigación instantánea, borradores inteligentes, análisis profundos.',
+    whyUseful: 'Para tareas donde tu experiencia y creatividad son insustituibles, pero necesitas datos, análisis y preparación que tomarían semanas.',
+    examples: ['Desarrollo de estrategia empresarial', 'Negociaciones complejas', 'Diseño creativo asistido'],
+    color: '#071128',
+    intensity: 0.95
+  },
+  {
+    id: 'P7',
+    number: '07',
+    title: 'Humano',
+    subtitle: 'Insustituible',
+    description: 'Tareas que solo los humanos pueden y deben hacer',
+    benefit: 'Reconocemos lo que es verdaderamente humano',
+    whatItDoes: 'Estas son las tareas donde la automatización no es recomendable: decisiones éticas complejas, liderazgo en crisis, creatividad pura.',
+    whyUseful: 'Porque ser honesto sobre qué NO automatizar es tan importante como saber qué sí automatizar. Protegemos lo que te hace humano.',
+    examples: ['Liderazgo en momentos de crisis', 'Decisiones éticas complejas', 'Conexión humana genuina'],
+    color: '#374151',
+    intensity: 1.0
+  }
+];
+---
+
+<section class={`automation-levels ${className}`}>
+  <div class="container">
+    <div class="levels-content">
+      <!-- Left Side - Stack of Levels -->
+      <div class="levels-stack">
+        <div class="stack-header">
+          <h2>Niveles de<br />Automatización</h2>
+          <p class="desktop-instruction">Haz clic en cada nivel para ver los detalles</p>
+        </div>
+        
+        <div class="stack-items">
+          {automationLevels.map((level, index) => (
+            <>
+              <div
+                class="stack-item"
+                data-level={level.id}
+                style={`--level-color: ${level.color}; --level-intensity: ${level.intensity}; --stack-index: ${index}`}
+              >
+                <div class="stack-number">{level.number}</div>
+                <div class="stack-content">
+                  <h3 class="stack-title">{level.title}</h3>
+                  <p class="stack-subtitle">{level.subtitle}</p>
+                </div>
+                <div class="stack-indicator">
+                  <div class="indicator-dot"></div>
+                </div>
+                <div class="mobile-toggle">+</div>
+              </div>
+              
+              <!-- Mobile inline content -->
+              <div class="mobile-explanation" data-level={level.id} style="display: none;">
+                <div class="mobile-explanation-content">
+                  <div class="mobile-explanation-header">
+                    <div class="mobile-explanation-badge" style={`background-color: ${level.color}`}>
+                      Nivel {level.number}
+                    </div>
+                    <p class="mobile-explanation-description">{level.description}</p>
+                  </div>
+
+                  <div class="mobile-explanation-sections">
+                    <div class="mobile-section">
+                      <h4 class="mobile-section-title">¿Qué hace?</h4>
+                      <p class="mobile-section-content">{level.whatItDoes}</p>
+                    </div>
+
+                    <div class="mobile-section">
+                      <h4 class="mobile-section-title">¿Por qué es útil?</h4>
+                      <p class="mobile-section-content">{level.whyUseful}</p>
+                    </div>
+
+                    <div class="mobile-section">
+                      <h4 class="mobile-section-title">Ejemplos prácticos</h4>
+                      <ul class="mobile-examples-list">
+                        {level.examples.map((example) => (
+                          <li style={`--example-color: ${level.color}`}>{example}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div class="mobile-benefit-highlight" style={`border-color: ${level.color}`}>
+                      <span class="mobile-benefit-text">{level.benefit}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right Side - Dynamic Content -->
+      <div class="level-explanation">
+        {automationLevels.map((level, index) => (
+          <div class="explanation-content" data-level={level.id} style={index === 0 ? 'display: block;' : 'display: none;'}>
+            <div class="explanation-header">
+              <div class="explanation-badge" style={`background-color: ${level.color}`}>
+                Nivel {level.number}
+              </div>
+              <h3 class="explanation-title">{level.title}</h3>
+              <p class="explanation-description">{level.description}</p>
+            </div>
+
+            <div class="explanation-sections">
+              <div class="section">
+                <h4 class="section-title">¿Qué hace?</h4>
+                <p class="section-content">{level.whatItDoes}</p>
+              </div>
+
+              <div class="section">
+                <h4 class="section-title">¿Por qué es útil?</h4>
+                <p class="section-content">{level.whyUseful}</p>
+              </div>
+
+              <div class="section">
+                <h4 class="section-title">Ejemplos prácticos</h4>
+                <ul class="examples-list">
+                  {level.examples.map((example) => (
+                    <li style={`--example-color: ${level.color}`}>{example}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="benefit-highlight" style={`border-color: ${level.color}`}>
+                <span class="benefit-text">{level.benefit}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const stackItems = document.querySelectorAll('.stack-item');
+    const explanationContents = document.querySelectorAll('.explanation-content');
+    const mobileExplanations = document.querySelectorAll('.mobile-explanation');
+    const mobileToggles = document.querySelectorAll('.mobile-toggle');
+    
+    function isMobile() {
+      return window.innerWidth <= 968;
+    }
+    
+    stackItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const levelId = this.getAttribute('data-level');
+        
+        if (isMobile()) {
+          // Mobile behavior: toggle inline content
+          const mobileContent = document.querySelector(`[data-level="${levelId}"].mobile-explanation`);
+          const toggle = this.querySelector('.mobile-toggle');
+          
+          if (mobileContent.style.display === 'none' || !mobileContent.style.display) {
+            // Close all other mobile explanations
+            mobileExplanations.forEach(content => {
+              content.style.display = 'none';
+            });
+            mobileToggles.forEach(t => {
+              t.textContent = '+';
+              t.parentElement.classList.remove('active');
+            });
+            
+            // Open current one
+            mobileContent.style.display = 'block';
+            toggle.textContent = '−';
+            this.classList.add('active');
+          } else {
+            // Close current one
+            mobileContent.style.display = 'none';
+            toggle.textContent = '+';
+            this.classList.remove('active');
+          }
+        } else {
+          // Desktop behavior: show content on right side
+          // Remove active class from all items
+          stackItems.forEach(i => i.classList.remove('active'));
+          // Add active class to current item
+          this.classList.add('active');
+          
+          // Hide all explanation contents
+          explanationContents.forEach(content => {
+            content.style.display = 'none';
+          });
+          
+          // Show current explanation content
+          const currentContent = document.querySelector(`[data-level="${levelId}"].explanation-content`);
+          if (currentContent) {
+            currentContent.style.display = 'block';
+          }
+        }
+      });
+    });
+    
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        if (isMobile()) {
+          // Hide desktop explanations and show mobile toggles
+          explanationContents.forEach(content => {
+            content.style.display = 'none';
+          });
+          mobileToggles.forEach(toggle => {
+            toggle.style.display = 'block';
+          });
+        } else {
+          // Hide mobile explanations and toggles, show desktop explanation
+          mobileExplanations.forEach(content => {
+            content.style.display = 'none';
+          });
+          mobileToggles.forEach(toggle => {
+            toggle.style.display = 'none';
+            toggle.textContent = '+';
+          });
+          stackItems.forEach(item => {
+            item.classList.remove('active');
+          });
+          // Show first explanation by default
+          if (explanationContents.length > 0) {
+            explanationContents[0].style.display = 'block';
+            stackItems[0].classList.add('active');
+          }
+        }
+      }, 100);
+    });
+    
+    // Set initial state
+    if (isMobile()) {
+      mobileToggles.forEach(toggle => {
+        toggle.style.display = 'block';
+      });
+      explanationContents.forEach(content => {
+        content.style.display = 'none';
+      });
+    } else {
+      if (stackItems.length > 0) {
+        stackItems[0].classList.add('active');
+      }
+      mobileToggles.forEach(toggle => {
+        toggle.style.display = 'none';
+      });
+    }
+  });
+</script>
+
+<style>
+  .automation-levels {
+    background-color: var(--honeydew);
+    padding: 4rem 0;
+  }
+
+  .levels-content {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 4rem;
+    min-height: 600px;
+  }
+
+  /* LEFT SIDE - STACK */
+  .levels-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .stack-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--oxford-blue);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .desktop-instruction {
+    color: #6b7280;
+    font-size: 1rem;
+    font-style: italic;
+    display: block;
+  }
+
+  .stack-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stack-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.4);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: visible;
+    opacity: 0.7;
+    flex-wrap: wrap;
+  }
+
+  .stack-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: calc(100% - 16px);
+    background: var(--level-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .stack-item:hover,
+  .stack-item.active {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--level-color);
+    opacity: 1;
+    transform: translateX(8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .stack-item.active::before {
+    opacity: 1;
+  }
+
+  .stack-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--level-color);
+    min-width: 40px;
+  }
+
+  .stack-content {
+    flex: 1;
+  }
+
+  .stack-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--oxford-blue);
+    margin-bottom: 0.25rem;
+  }
+
+  .stack-subtitle {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin: 0;
+  }
+
+  .stack-indicator {
+    width: 12px;
+    height: 12px;
+    position: relative;
+  }
+
+  .mobile-toggle {
+    display: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--level-color);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--level-color);
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .indicator-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--level-color);
+    opacity: 0;
+    transition: all 0.3s ease;
+    position: absolute;
+  }
+
+  .stack-item.active .indicator-dot {
+    opacity: 1;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+  }
+
+  /* RIGHT SIDE - EXPLANATION */
+  .level-explanation {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 0;
+    position: relative;
+  }
+
+  .explanation-content {
+    width: 100%;
+    max-width: 500px;
+    position: absolute;
+    top: 2rem;
+    animation: slideInRight 0.4s ease-out;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .explanation-header {
+    margin-bottom: 2rem;
+  }
+
+  .explanation-badge {
+    display: inline-block;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .explanation-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--oxford-blue);
+    margin-bottom: 0.75rem;
+  }
+
+  .explanation-description {
+    font-size: 1.1rem;
+    color: #374151;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .explanation-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .section {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .section:last-of-type {
+    border-bottom: none;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--oxford-blue);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-content {
+    color: #374151;
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+
+  .examples-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .examples-list li {
+    padding: 0.5rem 0;
+    color: #374151;
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .examples-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--example-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .benefit-highlight {
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .benefit-icon {
+    font-size: 1.5rem;
+  }
+
+  .benefit-text {
+    font-weight: 600;
+    color: var(--oxford-blue);
+    font-size: 1rem;
+  }
+
+  /* MOBILE EXPLANATION STYLES */
+  .mobile-explanation {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    border-left: 4px solid var(--level-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .mobile-explanation-badge {
+    display: inline-block;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .mobile-explanation-description {
+    font-size: 1rem;
+    color: #374151;
+    line-height: 1.5;
+    font-style: italic;
+    margin-bottom: 1.25rem;
+  }
+
+  .mobile-section {
+    margin-bottom: 1.25rem;
+  }
+
+  .mobile-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--oxford-blue);
+    margin-bottom: 0.5rem;
+  }
+
+  .mobile-section-content {
+    color: #374151;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+
+  .mobile-examples-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-examples-list li {
+    padding: 0.4rem 0;
+    color: #374151;
+    position: relative;
+    padding-left: 1.2rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .mobile-examples-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--example-color);
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .mobile-benefit-highlight {
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .mobile-benefit-icon {
+    font-size: 1.2rem;
+  }
+
+  .mobile-benefit-text {
+    font-weight: 600;
+    color: var(--oxford-blue);
+    font-size: 0.9rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 968px) {
+    .levels-content {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .stack-header h2 {
+      font-size: 2rem;
+    }
+
+    .desktop-instruction {
+      display: none;
+    }
+
+    .level-explanation {
+      display: none;
+    }
+
+    .mobile-toggle {
+      display: flex !important;
+    }
+
+    .stack-item {
+      margin-bottom: 0;
+    }
+
+    .explanation-content {
+      max-width: 100%;
+      position: static;
+    }
+
+    .explanation-title {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .stack-item {
+      padding: 1rem;
+    }
+
+    .stack-number {
+      font-size: 1.2rem;
+    }
+
+    .stack-title {
+      font-size: 1.1rem;
+    }
+  }
+</style>

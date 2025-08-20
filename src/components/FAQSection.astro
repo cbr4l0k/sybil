@@ -1,0 +1,155 @@
+---
+export interface Props {
+  className?: string;
+}
+
+const { className = "" }: Props = Astro.props;
+
+const categories = [
+  { id: 'top-questions', label: 'Preguntas principales', active: true },
+  { id: 'getting-started', label: 'Primeros pasos', active: false },
+  { id: 'pricing', label: 'Precios y costos', active: false },
+  { id: 'implementation', label: 'Implementación', active: false },
+  { id: 'technical', label: 'Aspectos técnicos', active: false },
+  { id: 'support', label: 'Soporte y mantenimiento', active: false }
+];
+
+const faqContent = {
+  'top-questions': [
+    {
+      question: "¿La automatización va a reemplazar a mi equipo?",
+      answer: "No, la automatización está diseñada para liberar a tu equipo de tareas repetitivas y aburridas, no para reemplazarlos. Nuestro enfoque es potenciar el talento humano, permitiendo que se concentren en trabajo estratégico, creativo y de mayor valor. De hecho, la mayoría de nuestros clientes terminan reubicando a su personal en roles más satisfactorios y mejor remunerados."
+    },
+    {
+      question: "¿Qué pasa si el sistema automatizado falla?",
+      answer: "Todo sistema de automatización que desarrollamos incluye monitoreo 24/7, respaldos automáticos y planes de contingencia. Además, siempre mantenemos la capacidad de regresar al proceso manual temporalmente. Nuestro enfoque de 'colaboración humano-IA' asegura que nunca dependas 100% de la automatización para procesos críticos."
+    },
+    {
+      question: "¿Cuánto tiempo toma recuperar la inversión?",
+      answer: "En promedio, nuestros clientes recuperan su inversión entre 3 a 8 meses, dependiendo del proceso automatizado. Para procesos simples (P1-P2), el retorno puede verse en semanas. Para automatizaciones más complejas (P4-P5), el período es mayor pero el impacto también es significativamente más alto."
+    }
+  ],
+  'getting-started': [
+    {
+      question: "¿Cómo empezamos a trabajar con Sybil?",
+      answer: "Comenzamos con una consulta gratuita donde analizamos tus procesos actuales. Luego realizamos una evaluación completa para identificar oportunidades de automatización y te presentamos un plan personalizado con prioridades claras y ROI proyectado."
+    },
+    {
+      question: "¿Qué información necesitan para la evaluación inicial?",
+      answer: "Necesitamos entender tus procesos actuales: qué pasos sigues, cuánto tiempo toma cada uno, qué herramientas usas, y dónde ves los mayores dolores de cabeza. No necesitas documentación técnica, solo tu experiencia diaria."
+    }
+  ],
+  'pricing': [
+    {
+      question: "¿Cuál es el costo de automatizar un proceso?",
+      answer: "Los costos varían según la complejidad del proceso (P1 a P7). Los procesos simples pueden costar desde $1.3M COP, mientras que automatizaciones avanzadas con IA pueden llegar a $7.5M COP. Siempre calculamos el ROI antes de comenzar para asegurar que la inversión tenga sentido."
+    },
+    {
+      question: "¿Ofrecen planes de pago flexibles?",
+      answer: "Sí, ofrecemos varias modalidades: pago por fases, modelo de ahorro compartido (donde pagás un porcentaje del ahorro generado), y co-desarrollo donde compartís riesgos y beneficios. Adaptamos el modelo de pago a tu flujo de caja."
+    }
+  ],
+  'implementation': [
+    {
+      question: "¿Qué tan disruptiva es la implementación?",
+      answer: "Nuestra metodología está diseñada para minimizar la disrupción. Trabajamos por fases incrementales, probamos en paralelo con tus procesos actuales, y solo hacemos la transición cuando todo está perfectamente validado. La mayoría de implementaciones se hacen fuera del horario crítico."
+    },
+    {
+      question: "¿Cuánto tiempo toma implementar una automatización?",
+      answer: "Depende del nivel de complejidad. Procesos simples (P1-P2) pueden estar listos en 1-2 semanas. Automatizaciones con IA (P3-P5) toman entre 4-8 semanas. Siempre establecemos cronogramas realistas con hitos claros."
+    }
+  ],
+  'technical': [
+    {
+      question: "¿Necesito conocimientos técnicos para trabajar con ustedes?",
+      answer: "Para nada. Nosotros nos encargamos de toda la parte técnica. Tu único trabajo es explicarnos cómo funcionan tus procesos actuales y validar que las soluciones propuestas cumplan tus expectativas. Entregamos todo listo para usar."
+    },
+    {
+      question: "¿Con qué sistemas existentes se pueden integrar?",
+      answer: "Trabajamos con la mayoría de sistemas empresariales: ERP, CRM, bases de datos, APIs, hojas de cálculo, y más. Si usás algo específico, evaluamos la compatibilidad en la fase de análisis inicial."
+    }
+  ],
+  'support': [
+    {
+      question: "¿Qué incluye el soporte post-implementación?",
+      answer: "Incluimos 3 meses de soporte completo sin costo adicional: monitoreo, ajustes, capacitación adicional y resolución de incidencias. Después ofrecemos planes de mantenimiento con diferentes niveles de servicio."
+    },
+    {
+      question: "¿Pueden hacer mejoras futuras al sistema?",
+      answer: "Absolutamente. Nuestros sistemas están diseñados para evolucionar. Podemos añadir nuevas funcionalidades, integrar nuevos procesos, y escalar la automatización según crezca tu negocio."
+    }
+  ]
+};
+---
+
+<section id="faq" class={`faq-section ${className}`}>
+  <div class="container">
+    <div class="faq-container">
+      <div class="faq-layout">
+        <!-- Left Sidebar -->
+        <div class="faq-sidebar">
+          <h2>FAQ</h2>
+          <nav class="faq-navigation">
+            {categories.map((category) => (
+              <button
+                class={`nav-item ${category.active ? 'active' : ''}`}
+                data-category={category.id}
+              >
+                {category.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        <!-- Right Content - Chat Style -->
+        <div class="faq-content">
+          <div class="chat-container">
+            {Object.entries(faqContent).map(([categoryId, items]) => (
+              <div class={`chat-category ${categoryId === 'top-questions' ? 'active' : ''}`} data-category={categoryId}>
+                {items.map((item, index) => (
+                  <div class="chat-item" key={index}>
+                    <div class="question-bubble">
+                      {item.question}
+                    </div>
+                    <div class="answer-text">
+                      {item.answer}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const navItems = document.querySelectorAll('.nav-item');
+    const chatCategories = document.querySelectorAll('.chat-category');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const categoryId = this.getAttribute('data-category');
+        
+        // Remove active class from all nav items
+        navItems.forEach(nav => nav.classList.remove('active'));
+        // Add active class to clicked item
+        this.classList.add('active');
+        
+        // Hide all chat categories
+        chatCategories.forEach(category => {
+          category.classList.remove('active');
+        });
+        
+        // Show selected category
+        const activeCategory = document.querySelector(`[data-category="${categoryId}"].chat-category`);
+        if (activeCategory) {
+          activeCategory.classList.add('active');
+        }
+      });
+    });
+  });
+</script>

@@ -22,7 +22,8 @@ const {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        {title && <title>{title}</title>}
+        <title>{title}</title>
+        <meta name="description" content={SITE_CONFIG.description} />
         <!-- stylesheet -->
         <link rel="stylesheet" href={createPath("styles.css")} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,17 +49,17 @@ const {
         <footer class="footer">
             <div class="container footer-content">
                 <div class="footer-column">
-                    <h3>Sybil</h3>
+                    <h3>{SITE_CONFIG.name}</h3>
                     <p>
-                    Transformamos procesos empresariales mediante automatización
-                    inteligente y humanos.
+                    {SITE_CONFIG.description}
                     </p>
                 </div>
                 <div class="footer-column">
                     <h4>Enlaces</h4>
                     <ul>
-
-                        <Link label="Metodología" href="#metodologia" />
+                        {DEFAULT_NAVIGATION.map(link => (
+                            <Link label={link.label} href={link.href} />
+                        ))}
                     </ul>
                 </div>
                 <div class="footer-column">

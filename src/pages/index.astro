@@ -8,7 +8,7 @@ import { createPath } from '../utils/paths';
 import { SITE_CONFIG } from '../utils/config';
 
 export const prerender = true;
-const pageTitle = "Sybil | Transformación Digital Inteligente";
+const pageTitle = SITE_CONFIG.title;
 
 const metodologiaItems = [
   {
@@ -40,8 +40,7 @@ const metodologiaItems = [
                 con <span>procesos humanos</span>
             </h1>
             <p class="hero-tagline">
-            Diseñamos y desarrollamos automatizaciones personalizadas, aplicamos inteligencia artificial y reestructuramos procesos
-            con enfoque estratégico, rentable y humano.
+            {SITE_CONFIG.description}
             </p>
             <a href={createPath("#contacto")} class="btn btn-primary">
                 Solicita una consulta gratuita

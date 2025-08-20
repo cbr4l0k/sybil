@@ -45,9 +45,8 @@ export const COMPONENT_VARIANTS = {
  * Default navigation links
  */
 export const DEFAULT_NAVIGATION = [
-  { href: '#metodologia', label: 'Metodología' },
-  { href: '#contacto', label: 'Contacto' },
   { href: '#automatizacion', label: 'Niveles de Automatización' },
+  { href: '#metodologia', label: 'Metodología' },
   { href: '#preguntas', label: 'Preguntas Frecuentes' },
   { href: '#contacto', label: 'Contacto' },
 ] as const;
